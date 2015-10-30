@@ -24,7 +24,7 @@
 * 
 * The product of these numbers is 26 × 63 × 78 × 14 = 1788696.
 * What is the greatest product of four adjacent numbers in the same direction (up, down, left, right, or diagonally) in the 20×20 grid?
-* A: 
+* A: 70600674
 */
 
 
@@ -51,9 +51,71 @@ arr[18] = [20,73,35,29,78,31,90,01,74,31,49,71,48,86,81,16,23,57,05,54];
 arr[19] = [01,70,54,71,83,51,54,69,16,92,33,48,61,43,52,01,89,19,67,48];
 
 
-for(var i = 0; i < arr.length-1; i++){
-	
+var bigger = 0;
+var val = 0;
+
+function multiply(num1, num2, num3, num4){
+	if(num1 < 0 || num2 < 0 || num3 < 0 || num4 < 0){
+		return -1;
+	}
+
+	return num1 * num2 * num3 * num4;
 }
+
+function getValidValue(i, j){	
+	
+	if(i < 0 || i >= 20){
+		return -1;
+	}
+
+	if(j < 0 || j >= 20){
+		return -1;
+	}
+
+	return arr[i][j];
+}
+
+
+for(var i = 0; i < 20; i++) {
+	for(var j = 0; j < 20; j++) {
+
+		// up
+		val = multiply(getValidValue(i,j), getValidValue(i-1,j), getValidValue(i-2,j), getValidValue(i-3,j));
+		if(bigger < val) { bigger = val; }
+
+		// down
+		val = multiply(getValidValue(i,j), getValidValue(i+1,j), getValidValue(i+2,j), getValidValue(i+3,j));
+		if(bigger < val) { bigger = val; }
+
+		// right
+		val = multiply(getValidValue(i,j), getValidValue(i,j+1), getValidValue(i,j+2), getValidValue(i,j+3));
+		if(bigger < val) { bigger = val; }
+
+		// left
+		val = multiply(getValidValue(i,j), getValidValue(i,j-1), getValidValue(i,j-2), getValidValue(i,j-3));
+		if(bigger < val) { bigger = val; }
+
+		//diagonally
+
+		// up -> right
+		val = multiply(getValidValue(i,j), getValidValue(i-1,j+1), getValidValue(i-2,j+2), getValidValue(i-3,j+3));
+		if(bigger < val) { bigger = val; }
+
+		// up <- left
+		val = multiply(getValidValue(i,j), getValidValue(i-1,j-1), getValidValue(i-2,j-2), getValidValue(i-3,j-3));
+		if(bigger < val) { bigger = val; }
+
+		// down -> right
+		val = multiply(getValidValue(i,j), getValidValue(i+1,j+1), getValidValue(i+2,j+2), getValidValue(i+3,j+3));
+		if(bigger < val) { bigger = val; }
+
+		// down <- left
+		val = multiply(getValidValue(i,j), getValidValue(i+1,j-1), getValidValue(i+2,j-2), getValidValue(i+3,j-3));
+		if(bigger < val) { bigger = val; }
+	}
+}
+
+console.log(bigger);
 
 
 
