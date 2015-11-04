@@ -1,5 +1,5 @@
 import problem.IProblem;
-import problem.P007_10001stPrime;
+import problem.P008_LargestProductInSeries;
 
 public class ProjectEulerMain {
 
@@ -10,7 +10,7 @@ public class ProjectEulerMain {
 		long startTime = System.nanoTime();
 		
 		// Get the Problem Solver.
-		IProblem instance = new P007_10001stPrime(); 
+		IProblem instance = new P008_LargestProductInSeries(); 
 
 		// Run the solution.
 		result = instance.getResult();
